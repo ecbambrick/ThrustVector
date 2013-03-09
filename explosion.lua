@@ -2,12 +2,12 @@ require "lib.classlib"
 
 class.Explosion()
 
-local derp2 = love.graphics.newImage("res/derp2.png");
+local explosionParticle = love.graphics.newImage("res/explosion.png");
 
 function Explosion:__init(x, y, angle)
 	self.timer = 0
 	scene:addObject(self)
-	self.p = love.graphics.newParticleSystem(derp2, 1000)
+	self.p = love.graphics.newParticleSystem(explosionParticle, 1000)
 	self.p:setEmissionRate(100)
 	self.p:setSpeed(100, 1000)
 	self.p:setSizes(1, 1)
