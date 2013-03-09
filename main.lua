@@ -1,67 +1,22 @@
---[[ TO DO ---------------------------------------------------------------------
+--[[----------------------------------------------------------------------------
 
-	health
-		player invincible on hit temporarily
+	Copyright (C) 2013 by Cole Bambrick
+	cole.bambrick@gmail.com
 
-	goal
-		goal randomly appears 1000 pixels infront ofb player
-		create two at once, one being a powerup thing, 3 at 25 intervals
-		goal animates slightly (pulsates)
-		
-	
---------------------------------------------------------------------------------
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-	main menu
-		how to play
-		high scores
-		settings
-			button config
-			difficulty
-			
-	polish
-		music, sound effects
-		stars in background
-		balance
-		
-	bugs
-		missile tail draws from 0,0 sometimes
-		sometimes hardoncollider crashes
-		
-	name
-		bahlraj
-		
----- CONCEPTS ------------------------------------------------------------------
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-	COMBOS: each power last 10 seconds
-			getting new power resets timers for current power ups
-			as accumlate multiple, score increases a tonne
-			gets more difficult or something
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see http://www.gnu.org/licenses/.
 
-	decide between life an power up
-	after 10	power ups
-	every 25	something random (good or bad, worth taking)
-	
-	Power ups (last 10 seconds)
-		spread gun
-		homing laser (like ZoE)
-		laser (forward)
-		lasers (to the sides)
-		speed boost
-		torque boost
-		rotating shield
-		increased invincibility after hit
-		shields (2 uses)
-		
-	Random (last 1 minute)
-		missles turn into something harmless
-		missiles turn into gunships
-		boss appears (kill for points)
-		some kind of summon thing
-		
-		go overpowered lasers everywhere super speed
-		get a gun, turn into a stationary turret thing
-		
-------------------------------------------------------------------------------]]
+--]]----------------------------------------------------------------------------
 
 require "camera"
 require "goal"
