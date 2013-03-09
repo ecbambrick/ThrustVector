@@ -1,7 +1,6 @@
 require "lib.classlib"
 require "token"
 require "explosion"
-require "missile"
 
 class.Spawner()
 

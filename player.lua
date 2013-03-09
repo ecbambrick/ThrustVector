@@ -1,6 +1,4 @@
 require "lib.classlib"
-require "components.fireable"
-require "components.laser"
 require "physics"
 require "token"
 
@@ -37,7 +35,6 @@ function Player:__init(x, y, x1, y1, x2, y2)
 	-- Initialize components
 	self.tail = Tail(self, COLOR_TEAL)
 	self.radar = Radar(60, COLOR_TEAL)
-	self.fireable = Laser(self)
 	
 end
 
@@ -75,7 +72,6 @@ function Player:update(dt)
 	-- Update tail and radar
 	self.tail:update(dt, self:getTailPosition())
 	self.radar:update(dt, self:getX(), self:getY())
-	self.fireable:update(dt)
 	
 	self.body.torque = defaultTorque
 	self.body.frict = defaultFriction
@@ -90,7 +86,6 @@ function Player:draw()
 	-- Draw misc
 	self.tail:draw()
 	self.radar:draw()
-	self.fireable:draw()
 	
 	-- Draw sprite
 	love.graphics.push()
