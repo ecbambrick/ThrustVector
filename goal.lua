@@ -1,5 +1,5 @@
 require "lib.classlib"
-require "token"
+require "radar"
 
 class.Goal()
 

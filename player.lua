@@ -1,6 +1,7 @@
 require "lib.classlib"
 require "physics"
-require "token"
+require "tail"
+require "radar"
 
 class.Player()
 
