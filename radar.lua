@@ -133,7 +133,7 @@ function RadarBlip:update(dt)
 	
 	-- determine size of blip based on distance from target
 	self.scale = distance / 80
-	if self.radius/self.scale < 2 then self.scale = self.radius/2 end
+	if self.radius/self.scale < 1 then self.scale = self.radius/2 end
 	if self.scale < 1 then self.scale = 1 end
 		
 	-- if the parent is within the radar radius, then draw directly over it

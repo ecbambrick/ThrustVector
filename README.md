@@ -1,8 +1,6 @@
 shooter_game
 ============
-top-down arena shooter
-
-requires LOVE to run (https://love2d.org/)
+Simple LOVE2D game. Requires LOVE to run (https://love2d.org/)
 
 Controls and Information
 -------------------------------------------
@@ -17,14 +15,13 @@ the ship is blue, you have half health.
 Radar surrounds the player and displays the direction of objects as small circles. As an object approaches the player,
 the circles will increase in size. Red objects are hostile and green objects are items.
 
-Goal
--------------------------------------------
 Collect green orbs (location is displayed on the radar that surrounds the player as green circles)
 Avoid missiles (displayed on radar as red circles)
+
 Green orbs will recover one health point, you have three health points in total
 
-
-Third Party Libraries:
+Third Party Libraries and Resources:
 -------------------------------------------
 * HardonCollider (http://vrld.github.com/HardonCollider/)
 * Multiple Inheritance Classes (http://lua-users.org/wiki/MultipleInheritanceClasses)
+* Viper Squadron Font (http://www.shyfoundry.com/)

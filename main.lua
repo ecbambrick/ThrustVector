@@ -26,7 +26,7 @@ COLOR_LIME		= { 181, 230, 29,  255 }
 
 WINDOW_WIDTH	= love.graphics.getWidth()
 WINDOW_HEIGHT	= love.graphics.getHeight()
-DEBUGMSG		= "tesst"
+DEBUGMSG		= ""
 
 require "camera"
 require "goal"
@@ -49,15 +49,18 @@ function love.load()
 
 	-- load scene
 	local size = 50000
-	scene = Scenario(size, size)
+	mainScene = Scenario(size, size)
+	titleScene = Scenario(0,0)
+	scene = titleScene
 	
 	-- Load game objects
 	player = Player(400,300)
 	spawner = Spawner(1000, 15)
 	goal = Goal(player, 500, 500)
-	scene:addObject(player)
-	scene:addObject(spawner)
-	scene:addObject(goal)
+	mainScene:addObject(player)
+	mainScene:addObject(spawner)
+	mainScene:addObject(goal)
+	titleScene:addObject(TitleScreen)
 	
 	-- Load camera
 	camera = Camera(400, 300, 1, 0, player, "follow")

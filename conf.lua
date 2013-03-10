@@ -19,7 +19,7 @@
 --]]----------------------------------------------------------------------------
 
 function love.conf(t)
-    t.title = "Test Game"
+    t.title = "Thrust Vector: Maximum Turbo"
     t.author = "Cole Bambrick"
     t.identity = nil
     t.version = "0.8.0"

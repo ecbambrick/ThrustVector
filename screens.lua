@@ -14,3 +14,28 @@ GameOverScreen = {
 		love.graphics.draw(self.image2.img, self.image2.x, self.image2.y)
 	end
 }
+
+TitleScreen = {
+	timer = 1,
+	maxTime = 1,
+	display = true,
+	titleImage = love.graphics.newImage("res/title.png"),
+	enterImage = love.graphics.newImage("res/pressenter.png"),
+	update = function(self, dt)
+		self.timer = self.timer + dt
+		if self.timer > self.maxTime then
+			self.timer = 0
+			display = not display
+		end
+		if love.keyboard.isDown("return") then
+			scene = mainScene
+		end
+	end,
+	draw = function(self)
+		love.graphics.setColor(255,255,255,255)
+		love.graphics.draw(self.titleImage, 0, 0)
+		if display then
+			love.graphics.draw(self.enterImage, 287, 441)
+		end
+	end,
+}
