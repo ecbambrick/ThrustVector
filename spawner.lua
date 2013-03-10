@@ -31,7 +31,7 @@ class.Spawner()
 function Spawner:__init(radius, chance)
 
 	self.radius = radius or 1000
-	self.chance = chance or 1500
+	self.chance = chance or 15
 	self.timer  = 0
 	
 end
@@ -60,7 +60,7 @@ function Spawner:update(dt)
 	local y		= player:getY() - (self.radius * math.sin(angle))
 	
 	-- Fire a missile
-	if fireMissile and math.random(self.chance) == 1 then
+	if fireMissile and player.active and math.random(self.chance) == 1 then
 		local missile = Missile(x,y)
 		scene:addObject(missile)
 	end
@@ -92,6 +92,7 @@ function Missile:__init(x,y)
 	self.timerDie = 7
 	self.timerFollow = 5
 	self.timer = 0
+	self.active = true
 
 	-- Initialize components
 	self.radar = RadarBlip(player:getRadar(), self, 16, COLOR_ORANGE)
@@ -123,6 +124,7 @@ function Missile:update(dt)
 		self:getRadar().color = COLOR_ORANGE
 	else
 		self:getRadar().color = COLOR_TEAL
+		self.active = false
 	end
 	
 	-- Apply passive physics (friction and boundaries) and update collision
@@ -166,7 +168,7 @@ end
 -- Actions
 --==============================================================================
 function Missile:explode(x,y,angle)
-	explosion = Explosion(x,y,angle)
+	Explosion(x,y,angle)
 	self:die()
 end
 

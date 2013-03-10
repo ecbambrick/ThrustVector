@@ -18,12 +18,6 @@
 
 --]]----------------------------------------------------------------------------
 
-require "camera"
-require "goal"
-require "player"
-require "scenario"
-require "spawner"
-
 COLOR_TEAL		= { 165, 234, 241, 255 }
 COLOR_ORANGE	= { 255, 100, 100, 255 }
 COLOR_RED		= { 255, 0,   0,   255 }
@@ -33,6 +27,13 @@ COLOR_LIME		= { 181, 230, 29,  255 }
 WINDOW_WIDTH	= love.graphics.getWidth()
 WINDOW_HEIGHT	= love.graphics.getHeight()
 DEBUGMSG		= "tesst"
+
+require "camera"
+require "goal"
+require "player"
+require "scenario"
+require "spawner"
+require "screens"
 
 local fpsCount = 0
 local fpsTime = 0
@@ -96,6 +97,9 @@ function love.draw()
 	-- Draw interface
 	love.graphics.setColor(255,255,255,255)
 	love.graphics.print(DEBUGMSG, 10, 10)
+	if not player.active then
+		GameOverScreen:draw()
+	end
 	
 end
 
@@ -113,9 +117,11 @@ function onCollision(dt, shape_a, shape_b)
 	end
 	
 	if classname(a) == "Player" and classname(b) == "Missile" then
-		a:decrementHealth()
-		b:explode(a:getX(), a:getY(), b:getAngle())
-		camera:shake()
+		if b.active then
+			a:decrementHealth()
+			b:explode(a:getX(), a:getY(), b:getAngle())
+			camera:shake()
+		end
 	end
 	
 	if classname(a) == "Bullet" and classname(b) == "Missile" then
@@ -174,6 +180,7 @@ function drawRepeatingBG(image)
 	
 	for i = x1, x2, image:getWidth() do
 		for j = y1, y2, image:getHeight() do 
+			love.graphics.setColor({11, 33, 33, 255})
 			love.graphics.draw(image, i, j)
 		end
 	end

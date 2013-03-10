@@ -36,6 +36,7 @@ function Player:__init(x, y, x1, y1, x2, y2)
 	self.highScore = 0
 	self.maxHealth = 3
 	self.color = COLOR_TEAL
+	self.active = true
 
 	-- Initialize physics and collision detection
 	self.minTorque = 2
@@ -56,6 +57,8 @@ function Player:__init(x, y, x1, y1, x2, y2)
 	-- Initialize components
 	self.tail = Tail(self, COLOR_TEAL)
 	self.radar = Radar(60, COLOR_TEAL)
+	self.radar.x = x
+	self.radar.y = y
 	
 end
 
@@ -73,17 +76,28 @@ function Player:update(dt)
 						/ self.body:getMaxVelocity()
 						+ self.maxTorque
 	
-	-- [ INPUT ] Slow down
-	if love.keyboard.isDown("down") or love.keyboard.isDown("lshift") then
-		self.body.frict = 1500 
+	if self.active then
+		-- [ INPUT ] Slow down
+		if love.keyboard.isDown("down") or love.keyboard.isDown("lshift") then
+			self.body.frict = 1500 
+		end
+		
+		-- [ INPUT ] Move Forward
+		if love.keyboard.isDown("up") then self.body:applyAcceleration(dt) end
+		
+		-- [ INPUT ] Rotate
+		if love.keyboard.isDown("left") then self.body:rotateLeft(dt)
+		elseif love.keyboard.isDown("right") then self.body:rotateRight(dt) end
 	end
 	
-	-- [ INPUT ] Move Forward
-	if love.keyboard.isDown("up") then self.body:applyAcceleration(dt) end
-	
-	-- [ INPUT ] Rotate
-	if love.keyboard.isDown("left") then self.body:rotateLeft(dt)
-	elseif love.keyboard.isDown("right") then self.body:rotateRight(dt) end
+	if not self.active then
+		if love.keyboard.isDown("return") then self:revive() end
+	end
+		
+	-- [ INPUT ] close game
+	if love.keyboard.isDown("lalt") and love.keyboard.isDown("f4") then
+		love.event.quit()
+	end
 	
 	-- Apply passive physics (friction and boundaries) and update collision
 	self.body:applyFriction(dt)		-- updates velocity
@@ -103,6 +117,8 @@ end
 -- Draw
 --==============================================================================
 function Player:draw()
+
+	-- if not self.active then return end
 
 	-- Draw misc
 	self.tail:draw()
@@ -145,11 +161,24 @@ function Player:incrementScore()
 end
 
 function Player:die()
-	self.health = 3
 	self.score = 0
 	DEBUGMSG = "score: " .. self.score .. "\nhigh score: " .. self.highScore
+	self.active = false
+	self.color = COLOR_RED
+	self.radar.color = COLOR_RED
+	for i,v in pairs(scene.objects) do
+		if classname(v) == "Missile" then
+			v.timer = v.timerFollow
+		end
+	end
 end
 
+function Player:revive()
+	self.health = 3
+	self.active = true
+	self.color = COLOR_TEAL
+	self.radar.color = COLOR_TEAL
+end
 
 --==============================================================================
 -- Setters and getters
