@@ -6,7 +6,7 @@ GameOverScreen = {
 	},
 	image2 = {
 		img = love.graphics.newImage("res/tryagain.png"),
-		x = ( WINDOW_WIDTH - 389 ) / 2,
+		x = ( WINDOW_WIDTH - 370 ) / 2,
 		y = WINDOW_HEIGHT - 100,
 	},
 	draw = function(self)
@@ -29,6 +29,7 @@ TitleScreen = {
 		end
 		if love.keyboard.isDown("return") then
 			scene = mainScene
+			SCORE_DISPLAY = "score: 0\nhigh score: 0"
 		end
 	end,
 	draw = function(self)

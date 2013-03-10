@@ -157,12 +157,12 @@ end
 function Player:incrementScore()
 	self.score = self.score + 1
 	if self.score > self.highScore then self.highScore = self.score end
-	DEBUGMSG = "score: " .. self.score .. "\nhigh score: " .. self.highScore
+	SCORE_DISPLAY = "score: " .. self.score .. "\nhigh score: " .. self.highScore
 end
 
 function Player:die()
 	self.score = 0
-	DEBUGMSG = "score: " .. self.score .. "\nhigh score: " .. self.highScore
+	SCORE_DISPLAY = "score: " .. self.score .. "\nhigh score: " .. self.highScore
 	self.active = false
 	self.color = COLOR_RED
 	self.radar.color = COLOR_RED

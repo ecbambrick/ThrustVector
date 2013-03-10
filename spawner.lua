@@ -88,14 +88,14 @@ class.Missile()
 function Missile:__init(x,y)
 
 	-- Initialize properties
-	self.color = COLOR_ORANGE
+	self.color = COLOR_RED
 	self.timerDie = 7
 	self.timerFollow = 5
 	self.timer = 0
 	self.active = true
 
 	-- Initialize components
-	self.radar = RadarBlip(player:getRadar(), self, 16, COLOR_ORANGE)
+	self.radar = RadarBlip(player:getRadar(), self, 16, COLOR_RED)
 	self.tail = Tail(self, COLOR_WHITE)
 
 	-- Initialize physics and collision detection
@@ -121,7 +121,7 @@ function Missile:update(dt)
 	-- Missile stops tracking player after timerFollow is reached
 	if self.timer < self.timerFollow then
 		self.body:faceObject(player)
-		self:getRadar().color = COLOR_ORANGE
+		self:getRadar().color = COLOR_RED
 	else
 		self:getRadar().color = COLOR_TEAL
 		self.active = false

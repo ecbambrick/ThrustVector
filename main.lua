@@ -20,13 +20,13 @@
 
 COLOR_TEAL		= { 165, 234, 241, 255 }
 COLOR_ORANGE	= { 255, 100, 100, 255 }
-COLOR_RED		= { 255, 0,   0,   255 }
+COLOR_RED		= { 255, 0,   165, 255 }
 COLOR_WHITE		= { 255, 255, 255, 255 }
 COLOR_LIME		= { 181, 230, 29,  255 }
 
 WINDOW_WIDTH	= love.graphics.getWidth()
 WINDOW_HEIGHT	= love.graphics.getHeight()
-DEBUGMSG		= ""
+SCORE_DISPLAY	= ""
 
 require "camera"
 require "goal"
@@ -34,9 +34,6 @@ require "player"
 require "scenario"
 require "spawner"
 require "screens"
-
-local fpsCount = 0
-local fpsTime = 0
 
 --==============================================================================
 -- Load game
@@ -47,7 +44,7 @@ function love.load()
 	HC = require "lib/HardonCollider"
 	collider = HC(100, onCollision)
 
-	-- load scene
+	-- load scenes
 	local size = 50000
 	mainScene = Scenario(size, size)
 	titleScene = Scenario(0,0)
@@ -61,12 +58,12 @@ function love.load()
 	mainScene:addObject(spawner)
 	mainScene:addObject(goal)
 	titleScene:addObject(TitleScreen)
+	bg = love.graphics.newImage("res/grid.png")
 	
 	-- Load camera
 	camera = Camera(400, 300, 1, 0, player, "follow")
 	
-	bg = love.graphics.newImage("res/grid.png")
-	
+	-- Load font
 	local font = love.graphics.newImageFont("res/font.png",
 		" abcdefghijklmnopqrstuvwxyz" ..
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
@@ -79,7 +76,6 @@ end
 -- Update logic
 --==============================================================================
 function love.update(dt)
-	--updateFPS(dt)
 	scene:update(dt)
 	collider:update(dt)
 	camera:update(dt)
@@ -99,7 +95,7 @@ function love.draw()
 	
 	-- Draw interface
 	love.graphics.setColor(255,255,255,255)
-	love.graphics.print(DEBUGMSG, 10, 10)
+	love.graphics.print(SCORE_DISPLAY, 10, 10)
 	if not player.active then
 		GameOverScreen:draw()
 	end
@@ -143,22 +139,11 @@ end
 -- Helper functions
 --==============================================================================
 
--- Update FPS counter
-function updateFPS(dt)
-	fpsCount = fpsCount+1
-	fpsTime = fpsTime + dt
-	if fpsTime >= 1 then
-		DEBUGMSG = fpsCount
-		fpsTime = 0
-		fpsCount = 0
-	end
-end
-
 -- Create a list of values that can be checked with set["val"]
 function set (list)
-  local set = {}
-  for _, l in ipairs(list) do set[l] = false end
-  return set
+	local set = {}
+	for _, l in ipairs(list) do set[l] = false end
+	return set
 end
 
 -- Return the value with the highest magnitude (ignore sign)
