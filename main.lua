@@ -27,6 +27,8 @@ COLOR_LIME		= { 181, 230, 29,  255 }
 WINDOW_WIDTH	= love.graphics.getWidth()
 WINDOW_HEIGHT	= love.graphics.getHeight()
 SCORE_DISPLAY	= ""
+TIME_STEP		= 1/100
+TIME_DELTA		= 0
 
 require "camera"
 require "goal"
@@ -76,10 +78,13 @@ end
 -- Update logic
 --==============================================================================
 function love.update(dt)
-	scene:update(dt)
-	collider:update(dt)
-	camera:update(dt)
-	
+	TIME_DELTA = TIME_DELTA + dt
+	while TIME_DELTA > TIME_STEP do
+		scene:update(TIME_STEP)
+		collider:update(TIME_STEP)
+		camera:update(TIME_STEP)
+		TIME_DELTA = TIME_DELTA - TIME_STEP
+	end
 end
 
 --==============================================================================
