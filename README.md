@@ -1,4 +1,4 @@
-shooter_game
+Thrust Vector: Maximum Turbo
 ============
 Simple LOVE2D game. Requires LOVE to run (https://love2d.org/)
 
